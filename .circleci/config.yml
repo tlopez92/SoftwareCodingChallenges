@@ -8,7 +8,7 @@ jobs:
   build:
    working_directory: ~/codingChallenges
    docker:
-    - image: mcr.microsoft.com/dotnet/core/runetime:latest
+    - image: mcr.microsoft.com/dotnet/core/runtime:latest
       auth:
         username: $DOCKER_USER
         password: $DOCKER_PASS
