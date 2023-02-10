@@ -9,11 +9,12 @@ jobs:
    working_directory: ~/codingChallenges
    docker:
     - image: microsoft/dotnet:latest
+      auth:
+        username: $DOCKER_USER
+        password: $DOCKER_PASS
    steps:
     - checkout
-    - run:
-        docker login -u $DOCKER_USER -p $DOCKER_PASS
-        dotnet build
+    - run: dotnet build
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
