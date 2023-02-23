@@ -20,22 +20,22 @@ jobs:
         username: $(op read op://engineering/DockerLogin/username)
         password: $(op read op://engineering/DockerLogin/password)
    environment:
-     TAG: $CIRCLE_BUILD_NUM
+     TAG: latest-$(date +%s)
    steps:
-    - checkout
-    - setup_remote_docker:
-        version: 20.10.14
-        docker_layer_caching: true
-    - run: |
-        apt-get update
-        apt-get install -y docker.io
-    - run:
-        name: Build and package the .NET application
-        command: |
-          docker build -t technosys/coding-challenges:$(TAG) -t technosys/coding-challenges:latest -f Dockerfile .
-          docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push technosys/coding-challenges:$TAG
-          docker push technosys/coding-challenges:latest
+     - checkout
+     - setup_remote_docker:
+         version: 20.10.14
+         docker_layer_caching: true
+     - run: |
+         apt-get update
+         apt-get install -y docker.io
+     - run:
+         name: Build and package the .NET application
+         command: |
+           docker build -t technosys/coding-challenges:$TAG -t technosys/coding-challenges:latest -f Dockerfile .
+           docker login -u $DOCKER_USER -p $DOCKER_PASS
+           docker push technosys/coding-challenges:$TAG
+           docker push technosys/coding-challenges:latest
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
