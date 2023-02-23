@@ -32,7 +32,7 @@ jobs:
          command: |
            export TAG=latest-$(date +'%Y%m%d-%H%M%S')
            docker build -t technosys/coding-challenges:${TAG} -t technosys/coding-challenges:latest -f Dockerfile .
-           docker login -u $DOCKER_USER -p $DOCKER_PASS
+           docker login -u $DOCKER_USER --password-stdin
            docker push technosys/coding-challenges:${TAG}
            docker push technosys/coding-challenges:latest
 # Invoke jobs via workflows
