@@ -13,8 +13,6 @@ jobs:
     steps:
       - 1password/install-cli
   build:
-   machine:
-     image: ubuntu-2204:current
    working_directory: ~/codingChallenges
    docker:
     - image: mcr.microsoft.com/dotnet/sdk:7.0
@@ -26,7 +24,6 @@ jobs:
     - setup_remote_docker:
         version: 20.10.14
         docker_layer_caching: true
-    - 1password/install-cli
     - run: |
         apt-get update
         apt-get install -y docker.io
