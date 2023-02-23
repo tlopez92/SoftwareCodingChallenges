@@ -29,8 +29,8 @@ jobs:
         command: |
           dotnet restore
           dotnet publish -c Release -o ./publish
-          docker build -t softwarecodingchallenges:latest .
-          docker save -o softwarecodingchallenges.tar softwarecodingchallenges:latest
+          docker build -t codingChallenges:latest .
+          docker save -o codingChallenges.tar codingChallenges:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
