@@ -17,8 +17,8 @@ jobs:
    docker:
     - image: mcr.microsoft.com/dotnet/sdk:7.0
       auth:
-        username: $DOCKER_USER
-        password: $DOCKER_PASS
+        username: $(op read op://engineering/DockerLogin/username)
+        password: $(op read op://engineering/DockerLogin/password)
    steps:
     - checkout
     - run: dotnet build
