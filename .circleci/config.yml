@@ -20,7 +20,7 @@ jobs:
         username: $(op read op://engineering/DockerLogin/username)
         password: $(op read op://engineering/DockerLogin/password)
    environment:
-     TAG: 1.$CIRCLE_BUILD_NUM
+     TAG: $CIRCLE_BUILD_NUM
    steps:
     - checkout
     - setup_remote_docker:
@@ -32,7 +32,7 @@ jobs:
     - run:
         name: Build and package the .NET application
         command: |
-          docker build -t technosys/coding-challenges:$TAG -t technosys/coding-challenges:latest -f Dockerfile .
+          docker build -t technosys/coding-challenges:$(TAG) -t technosys/coding-challenges:latest -f Dockerfile .
           docker login -u $DOCKER_USER -p $DOCKER_PASS
           docker push technosys/coding-challenges:$TAG
           docker push technosys/coding-challenges:latest
