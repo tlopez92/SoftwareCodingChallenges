@@ -21,7 +21,13 @@ jobs:
         password: $(op read op://engineering/DockerLogin/password)
    steps:
     - checkout
-    - run: dotnet build
+    - run:
+        name: Build and package the .NET application
+        command: |
+          dotnet restore
+          dotnet publish -c Release -o ./publish
+          docker build -t SoftwareCodingChallenges:latest .
+          docker save -o SoftwareCodingChallenges.tar SoftwareCodingChallenges:latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
