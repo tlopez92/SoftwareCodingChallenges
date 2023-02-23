@@ -21,7 +21,6 @@ jobs:
         password: $(op read op://engineering/DockerLogin/password)
    steps:
     - checkout
-    - 1password/install-cli
     - setup_remote_docker:
         version: 20.10.14
         docker_layer_caching: true
@@ -31,6 +30,7 @@ jobs:
     - run:
         name: Build and package the .NET application
         command: |
+          1password/install-cli
           docker build -t technosys/coding-challenges:latest -f Dockerfile .
           docker login -u $(op read op://engineering/DockerLogin/username) -p $(op read op://engineering/DockerLogin/password)
           docker push technosys/coding-challenges:latest
