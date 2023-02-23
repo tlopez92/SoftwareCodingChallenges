@@ -13,24 +13,17 @@ jobs:
     steps:
       - 1password/install-cli
   build:
-   working_directory: ~/codingChallenges
-   docker:
-    - image: mcr.microsoft.com/dotnet/sdk:7.0
-      auth:
-        username: $(op read op://engineering/DockerLogin/username)
-        password: $(op read op://engineering/DockerLogin/password)
-   steps:
-    - checkout
-    - run: |
-        apt-get update
-        apt-get install -y docker.io
-    - run:
-        name: Build and package the .NET application
-        command: |
-          dotnet restore
-          dotnet publish -c Release -o ./publish
-          docker build -t codingchallenges:latest .
-          docker save -o codingchallenges.tar codingchallenges:latest
+    working_directory: ~/codingChallenges
+    docker:
+      - image: mcr.microsoft.com/dotnet/sdk:7.0
+        auth:
+          username: $(op read op://engineering/DockerLogin/username)
+          password: $(op read op://engineering/DockerLogin/password)
+    steps:
+      - checkout
+      - run: docker build -t myapp .
+        working_directory: ~/codingChallenges
+        dockerfile: Dockerfile
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
