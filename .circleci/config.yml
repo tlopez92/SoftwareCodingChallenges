@@ -21,17 +21,19 @@ jobs:
         password: $(op read op://engineering/DockerLogin/password)
    steps:
     - checkout
-      
     - setup_remote_docker:
         version: 20.10.14
         docker_layer_caching: true
     - run: |
         apt-get update
         apt-get install -y docker.io
+    - run: |
+        TAG=0.1.$CIRCLE_BUILD_NUM
     - run:
         name: Build and package the .NET application
         command: |
-          docker build -t codingchallenges:latest -f Dockerfile .
+          docker build -t codingchallenges:$TAG -f Dockerfile .
+          docker push CodingChallenges/codingchallenges:$TAG
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
