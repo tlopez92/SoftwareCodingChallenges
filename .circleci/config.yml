@@ -17,8 +17,8 @@ jobs:
    docker:
     - image: mcr.microsoft.com/dotnet/sdk:7.0
       auth:
-        username: $(op read op://engineering/DockerLogin/username)
-        password: $(op read op://engineering/DockerLogin/password)
+        username: $DOCKER_USER
+        password: $DOCKER_PASS
    steps:
      - checkout
      - setup_remote_docker:
@@ -32,7 +32,7 @@ jobs:
          command: |
            export TAG=latest-$(date +'%Y%m%d-%H%M%S')
            docker build -t technosys/coding-challenges:${TAG} -t technosys/coding-challenges:latest -f Dockerfile .
-           docker login -u $DOCKER_USER --password-stdin
+           docker login -u $DOCKER_USER -p $DOCKER_PASS
            docker push technosys/coding-challenges:${TAG}
            docker push technosys/coding-challenges:latest
 # Invoke jobs via workflows
