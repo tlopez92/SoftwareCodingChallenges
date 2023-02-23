@@ -10,14 +10,8 @@ COPY . .
 # Restore the NuGet packages
 RUN dotnet restore
 
-
-
 # Publish the application
 RUN dotnet publish -c Release -o out
-
-# Set the startup command to run the published application
-# CMD ["dotnet", "publish/SoftwareCodingChallenges.dll"]
-
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
